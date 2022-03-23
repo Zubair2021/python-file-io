@@ -17,14 +17,13 @@ any word containing inherit* """
 """ opening required files and writing out new file with search results """
 
 if __name__ == "__main__":
- #def main():
 
    print('\nOpening origin.txt')
    with open('origin.txt', 'r') as in_stream:
       print('\nOpening inherit.txt\n')
       with open('inherit.txt', 'w') as out_stream:
         def main():
-           for line in in_stream:
+           for (line_num, line) in enumerate(in_stream):
              line = line.strip()
              words_list = line.split()
              import re
@@ -32,9 +31,8 @@ if __name__ == "__main__":
              for word in words_list:
                 if re.match("inherit[^,.;-]+$", word, flags=re.I): # re.I == re.IGNORECASE
                      print(word)
-                     #word = re.sub('\W+',' ', words)
-                     #print(word)
-                     out_stream.write('{0}\n'.format(word))
+                     out_stream.write('%d\t%s\n' % (line_num, word))  # Tab delimited outstream of the line number and the word searched with regex
+
         main()
 
 print("\nDone!")
